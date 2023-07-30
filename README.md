@@ -2,5 +2,5 @@
 ### 技術スタック
 *React
 ### ローカル環境構築手順
-＊npm install
+*npm install
 *npm start
