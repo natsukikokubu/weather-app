@@ -1,12 +1,12 @@
 import React from "react";
 
-const WeatherForcastCard = ({ Data }) => {
+export const WeatherForcastCard = ({ data }) => {
   return (
     <div className="card" style={cardStyle}>
-      {Data ? (
+      {data ? (
         <div>
-          <p>天気: {Data.telop}</p>
-          <p>最高気温: {Data.temperature.max.celsius}</p>
+          <p>天気: {data.telop}</p>
+          <p>最高気温: {data.temperature.max.celsius}</p>
         </div>
       ) : (
         <p>天気情報を取得中..</p>
@@ -24,5 +24,3 @@ const cardStyle = {
   backgroundColor: "#87ceeb",
   borderRadius: "20px",
 };
-
-export default WeatherForcastCard;

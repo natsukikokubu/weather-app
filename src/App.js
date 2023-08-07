@@ -1,15 +1,15 @@
 import { render } from "@testing-library/react";
 import "./App.css";
-import Select from "./DropDown";
-import { useEffect, useState } from "react";
 import axios from "axios";
-import Title from "./Title";
-import Button from "./Button";
-import WeatherForcastCard from "./WeatherForcastCard";
+import { Select } from "./DropDown";
+import { useEffect, useState } from "react";
+import { Title } from "./Title";
+import { Button } from "./Button";
+import { WeatherForcastCard } from "./WeatherForcastCard";
 
 function App() {
-  const [weatherData, setWeatherData] = useState("");
-
+  const [weatherData, setWeatherData] = useState();
+  const [placeName, setPlaceName] = useState("");
   const apiURL = "https://weather.tsukumijima.net/api/forecast";
 
   const options = [
@@ -17,7 +17,7 @@ function App() {
     { label: "大阪", id: "270000" },
     { label: "栃木", id: "090010" },
   ];
-  const [placeName, setPlaceName] = useState("");
+
   const placeNameChange = (selectedOption) => {
     // 選択された地域の値を取得
     const selectedId = selectedOption.id;
@@ -38,6 +38,7 @@ function App() {
         },
       })
       .then((response) => {
+        //APIデータがforcast[0]が今日の天気、forcast[1]が明日の天気...となっており、明日の天気を表示させたいためforcast[1]とした
         setWeatherData(response.data.forecasts[1]);
       })
       .catch((error) => {
@@ -45,11 +46,10 @@ function App() {
         setWeatherData(null);
       });
   };
-  console.log(weatherData);
 
   return (
     <div>
-      <Title text={"明日の天気"} />
+      <Title text="明日の天気" />
       <div>
         <Select
           options={options}
@@ -62,7 +62,7 @@ function App() {
       <div>
         <Button label="検索" onClick={handleChangeSearchButton} />
       </div>
-      <WeatherForcastCard Data={weatherData} />
+      <WeatherForcastCard data={weatherData} />
     </div>
   );
 }
